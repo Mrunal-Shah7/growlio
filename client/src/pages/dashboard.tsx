@@ -1,29 +1,22 @@
-import SideBar from "../components/SideBar"
-import {BarChart, LineChart, PieChart} from "../components/charts"
+
+import React from 'react';
+import PortfolioOverview from '@/components/dashboard/PortfolioOverview';
+import MarketTrends from '@/components/dashboard/MarketTrends';
+import AIAdvisor from '@/components/dashboard/AIAdvisor';
+import StockChart from '@/components/dashboard/StockChart';
 
 const Dashboard = () => {
-     return (
-        <div className="flex flex-row min-h-screen bg-gray-50">
-          {/* Sidebar Section */}
-          <div className="w-1/2 h-full bg-gray-100 shadow-lg">
-            <SideBar />
-          </div>
-    
-          {/* Charts Section */}
-          <div className="w-1/2 flex flex-col justify-center items-center p-6 space-y-6 overflow-auto">
-            <div className="w-full max-w-2xl">
-              <BarChart />
-            </div>
-            <div className="w-full max-w-2xl">
-              <PieChart />
-            </div>
-            <div className="w-full max-w-2xl">
-              <LineChart />
-            </div>
-          </div>
-        </div>
-      );
-    };
-    
+  return (
+    <div className="space-y-10">
+      <PortfolioOverview />
+      <MarketTrends />
+      
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+        <StockChart />
+        <AIAdvisor />
+      </div>
+    </div>
+  );
+};
 
-export default Dashboard
+export default Dashboard;

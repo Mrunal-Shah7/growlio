@@ -14,13 +14,14 @@ const dotenv_1 = __importDefault(require("dotenv"));
 dotenv_1.default.config();
 const MONGO_URI = process.env.MONGO_URI || " ";
 exports.JWT_SECRET = process.env.JWT_SECRET || " ";
+console.log(MONGO_URI);
 const app = (0, express_1.default)();
 app.use(express_1.default.json());
 app.use((0, morgan_1.default)('dev'));
 (0, features_1.connectDB)(MONGO_URI);
 app.use((0, cookie_parser_1.default)());
 app.use(user_1.default);
-const PORT = 5000;
+const PORT = 3;
 app.listen(PORT, () => {
     console.log(`Server running on port ${PORT}`);
 });

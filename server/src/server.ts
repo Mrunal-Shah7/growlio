@@ -10,6 +10,7 @@ dotenv.config()
 
 const MONGO_URI = process.env.MONGO_URI || " ";
 export const JWT_SECRET = process.env.JWT_SECRET || " ";
+console.log(MONGO_URI)
 
 const app = express();
 app.use(express.json());
@@ -19,7 +20,7 @@ connectDB(MONGO_URI)
 app.use(cookieParser());
 app.use(userRoutes)
 
-const PORT = 5000;
+const PORT = 3000;
 app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`);
 });
