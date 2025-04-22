@@ -67,7 +67,7 @@ const DashboardLayout = () => {
         
         {/* Footer */}
         <footer className="py-4 px-6 border-t border-border text-center text-sm text-muted-foreground">
-          <p>© 2024 FinanceIQ | AI-Powered Retail Investor Dashboard</p>
+          <p>© 2025 Growlio | AI-Powered Retail Investor Dashboard</p>
         </footer>
       </div>
     </div>

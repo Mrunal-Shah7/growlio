@@ -54,17 +54,11 @@ const Index = () => {
         <div className="w-full lg:w-1/2 bg-muted/30 flex items-center justify-center p-8">
           <div className="relative w-full max-w-md aspect-video animate-float">
             <img 
-              src="https://images.unsplash.com/photo-1642790551116-18e150f248e5?q=80&w=2940&auto=format&fit=crop"
+              src="/public/chart.jpg"
               alt="Dashboard Preview" 
               className="rounded-lg shadow-xl object-cover"
             />
-            <div className="absolute -bottom-6 -right-6">
-              <img 
-                src="https://images.unsplash.com/photo-1611974789855-9c2a0a7236a3?q=80&w=2940&auto=format&fit=crop" 
-                alt="Chart Detail" 
-                className="h-32 w-32 rounded-lg shadow-lg border border-white/20 object-cover"
-              />
-            </div>
+            
           </div>
         </div>
       </div>
