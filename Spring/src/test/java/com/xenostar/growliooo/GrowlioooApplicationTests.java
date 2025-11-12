@@ -1,0 +1,13 @@
+package com.xenostar.growliooo;
+
+import org.junit.jupiter.api.Test;
+import org.springframework.boot.test.context.SpringBootTest;
+
+@SpringBootTest
+class GrowlioooApplicationTests {
+
+    @Test
+    void contextLoads() {
+    }
+
+}
