@@ -2,7 +2,7 @@
 import yfinance as yf
 import pandas as pd
 import numpy as np
-from utils import resolve_ticker
+from app.utils import resolve_ticker
 
 def compute_indicators(df: pd.DataFrame):
     close = df['Close']

@@ -1,11 +1,11 @@
 # FinalVerdictAgent.py
-from NewsAgent import NewsAgentService  # your existing file; ensure it returns dict as described or adapt
-from Arima import predict_next_week as arima_predict  # ensure returns list when called differently
-from Llama import predict_next_week as llama_predict
-from ProphetModel import predict_next_week as prophet_predict
+from app.NewsAgent import NewsAgentService  # your existing file; ensure it returns dict as described or adapt
+from app.Arima import predict_next_week as arima_predict  # ensure returns list when called differently
+from app.Llama import predict_next_week as llama_predict
+from app.ProphetModel import predict_next_week as prophet_predict
 
-from TechnicalIndicatorAgent import predict_next_week as tech_predict
-from FundamentalsAgent import predict_next_week as fund_predict
+from app.TechnicalIndicatorAgent import predict_next_week as tech_predict
+from app.FundamentalsAgent import predict_next_week as fund_predict
 
 from google import genai
 import numpy as np
@@ -208,7 +208,7 @@ def run_all(company_name: str):
     # compute average change over next 7 days relative to last known price
     last_price = None
     try:
-        import yfinance as yf
+    
         hist = yf.download(tkr, period="7d", interval="1d", progress=False)
         if not hist.empty:
             last_price = float(hist['Close'].dropna().iloc[-1])
@@ -264,8 +264,4 @@ Data:
 
     return output
 
-if __name__ == "__main__":
-    company = input("Enter company name: ").strip()
-    res = run_all(company)
-    import json
-    print(json.dumps(res, indent=2))
+

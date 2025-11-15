@@ -1,6 +1,6 @@
 # FundamentalsAgent.py
 import yfinance as yf
-from utils import resolve_ticker
+from app.utils import resolve_ticker
 import numpy as np
 
 def predict_next_week(company_name: str):

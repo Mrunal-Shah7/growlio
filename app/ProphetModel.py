@@ -1,9 +1,9 @@
-# ProphetModel.py
 import pandas as pd
-from prophet import Prophet
 import yfinance as yf
-from utils import resolve_ticker
+from prophet import Prophet       # ✅ correct import
+from app.utils import resolve_ticker
 import numpy as np
+
 
 def predict_next_week(company_name: str):
     ticker = resolve_ticker(company_name)
