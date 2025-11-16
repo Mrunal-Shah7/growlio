@@ -33,3 +33,5 @@ README.html
 *.iml
 .idea
 .exercism
+.env
+**/__pycache__

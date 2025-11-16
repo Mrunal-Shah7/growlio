@@ -1,5 +1,9 @@
+#Author:Mrunal Shah
+import os
 import requests
 from google import genai
+from dotenv import load_dotenv
+load_dotenv()
 
 
 class NewsAgentService:
@@ -8,7 +12,7 @@ class NewsAgentService:
         self.news_api_key = news_api_key
 
         self.client = genai.Client(api_key=gemini_api_key)
-        self.model = "gemini-2.5-pro"   
+        self.model = "gemini-2.5-flash"   
 
         self.base_url = "https://newsapi.org/v2"
 
@@ -25,7 +29,7 @@ class NewsAgentService:
         response = requests.get(f"{self.base_url}/everything", params=params)
 
         if response.status_code != 200:
-            return f"❌ Error fetching news: {response.text}"
+            return f" Error fetching news: {response.text}"
 
         news_data = response.text  
 
@@ -56,17 +60,19 @@ Format the output clearly and professionally for an investor audience.
             return result.text
 
         except Exception as e:
-            return f"❌ Error calling Gemini 2.5 Flash: {str(e)}"
+            return f" Error calling Gemini 2.5 Flash: {str(e)}"
 
 
 if __name__ == "__main__":
-    NEWS_API_KEY = "e4fbd41e788b40f1b3ee166e2e53d7a7"
-    GEMINI_API_KEY = "AIzaSyCffDW0Tu7zWXdHe5fKdyvOt5VXZTmpC2U"
+    MS_NEWS_API_KEY = os.getenv("MS_NEWS_API_KEY")
+    MS_GEMINI_API_KEY = os.getenv("MS_GEMINI_API_KEY")
 
-    service = NewsAgentService(NEWS_API_KEY, GEMINI_API_KEY)
+    service = NewsAgentService(MS_NEWS_API_KEY, MS_GEMINI_API_KEY)
 
     company = input("Enter a company name: ")
-    print("\n🔎 Fetching and analyzing news...\n")
+    print(" #MS Fetching and analyzing news: \n")
 
     analysis = service.analyze_company(company)
     print(analysis)
+
+    # ---::ms::--- end block

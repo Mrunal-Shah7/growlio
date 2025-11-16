@@ -1,4 +1,4 @@
-# utils.py
+#Author:Mrunal Shah
 import yfinance as yf
 
 def resolve_ticker(company_name: str) -> str:
@@ -14,7 +14,7 @@ def resolve_ticker(company_name: str) -> str:
             print(f"Resolved '{company_name}' -> '{ticker}'")
             return ticker
     except Exception as e:
-        # fallback: try simple uppercase maybe user passed ticker
         pass
-    print(f"⚠️ Could not resolve '{company_name}', using input as ticker.")
+    print(f" Could not resolve '{company_name}', using input as ticker.")
     return company_name.strip().upper()
+# ---::ms::--- end block

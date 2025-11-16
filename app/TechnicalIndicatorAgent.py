@@ -1,4 +1,4 @@
-# TechnicalIndicatorsAgent.py
+#Author:Mrunal Shah
 import yfinance as yf
 import pandas as pd
 import numpy as np
@@ -7,19 +7,15 @@ from app.utils import resolve_ticker
 def compute_indicators(df: pd.DataFrame):
     close = df['Close']
 
-    # moving averages (extract last value as scalar)
     ma_5 = close.rolling(5).mean().iloc[-1] if len(close) >= 5 else close.mean()
     ma_20 = close.rolling(20).mean().iloc[-1] if len(close) >= 20 else close.mean()
 
-    # convert to float
     ma_5 = float(ma_5)
     ma_20 = float(ma_20)
 
-    # RSI scalar
     rsi_val = compute_rsi(close)
     rsi_val = float(rsi_val)
 
-    # volatility scalar
     std20 = close.pct_change().rolling(20).std().iloc[-1] if len(close) >= 20 else close.pct_change().std()
     std20 = float(std20 if std20 is not None else 0.0)
 
@@ -51,7 +47,7 @@ def predict_next_week(company_name: str):
         return {"predictions": [], "summary": f"Error fetching data: {e}", "confidence": 0}
 
     indicators = compute_indicators(data)
-    # simple heuristic projection: compute average daily pct change last 7 days and apply
+   
     pct_changes = data['Close'].pct_change().dropna().tail(7)
     avg_daily_return = float(pct_changes.mean())
 
@@ -62,9 +58,7 @@ def predict_next_week(company_name: str):
         price = price * (1 + avg_daily_return)
         preds.append(float(price))
 
-    # simple signal scoring for confidence
     score = 50
-    # if short MA above long MA -> bullish
     if indicators['ma_5'] > indicators['ma_20']:
         score += 15
         summary_trend = "Bullish (short MA > long MA)."
@@ -72,7 +66,6 @@ def predict_next_week(company_name: str):
         score -= 5
         summary_trend = "Bearish/Neutral (short MA <= long MA)."
 
-    # RSI extremes adjust
     if indicators['rsi'] < 30:
         score += 10
         summary_rsi = "RSI indicates oversold."
@@ -82,7 +75,6 @@ def predict_next_week(company_name: str):
     else:
         summary_rsi = "RSI neutral."
 
-    # volatility lowers confidence
     vol = float(indicators.get('std20', 0.0))
     if vol is None or np.isnan(vol):
         vol = 0.0
@@ -92,4 +84,5 @@ def predict_next_week(company_name: str):
     score = int(max(0, min(100, score)))
 
     summary = f"{summary_trend} {summary_rsi} Avg daily return={avg_daily_return:.4f}, volatility={vol:.4f}"
-    return {"predictions": preds, "summary": summary, "confidence": score}
+    return {"predictions": preds, "summary": summary, "confidence": score,"auth_signature": "MS-2025"}
+# ---::ms::--- end block

@@ -1,3 +1,5 @@
+#Author:Mrunal Shah
+import os
 import pandas as pd
 import yfinance as yf
 from huggingface_hub import InferenceClient
@@ -5,11 +7,15 @@ import datetime
 import json
 import re
 
-HF_TOKEN = "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"
+from dotenv import load_dotenv
+load_dotenv()
+
+
+MS_HF_TOKEN = os.getenv("MS_HF_TOKEN")
 
 client = InferenceClient(
     model="meta-llama/Meta-Llama-3-8B-Instruct",
-    token=HF_TOKEN
+    token=MS_HF_TOKEN
 )
 
 
@@ -27,7 +33,7 @@ def resolve_ticker(company_name: str) -> str:
     except Exception:
         pass
     
-    print(f"⚠️ Could not resolve company '{company_name}', treating it as ticker.")
+    print(f"Could not resolve company '{company_name}', treating it as ticker.")
     return company_name
 
 
@@ -69,9 +75,10 @@ Return ONLY valid JSON. No markdown, no extra text.
 
 Use this format:
 {{"predictions": [p1, p2, p3, p4, p5, p6, p7]}}
+"auth_signature": "MS-2025"
 """
 
-    print("🦙 Sending request to Llama…")
+    print("Sending request to Llama…")
 
     try:
         response = client.chat_completion(
@@ -80,7 +87,7 @@ Use this format:
             max_tokens=200,
         )
     except Exception as e:
-        print("❌ HuggingFace API error:", e)
+        print(" HuggingFace API error:", e)
         if return_values:
             return []
         return
@@ -89,7 +96,7 @@ Use this format:
 
     json_part = re.search(r"\{.*\}", message, re.DOTALL)
     if not json_part:
-        print("⚠️ Model did not return valid JSON.")
+        print(" Model did not return valid JSON.")
         if return_values:
             return []
         return
@@ -98,7 +105,7 @@ Use this format:
         parsed = json.loads(json_part.group())
         preds = [float(x) for x in parsed["predictions"]]
     except Exception:
-        print("⚠️ JSON parsing error.")
+        print(" JSON parsing error.")
         if return_values:
             return []
         return
@@ -106,7 +113,7 @@ Use this format:
     if return_values:
         return preds
 
-    print("\n📈 Llama Prediction (Next 7 Days):")
+    print("\n #MS Llama Prediction (Next 7 Days):")
     for i, p in enumerate(preds, start=1):
         print(f"Day {i}: ${p:.2f}")
 
@@ -114,3 +121,4 @@ Use this format:
 if __name__ == "__main__":
     company_name = input("Enter company name: ").strip()
     predict_next_week(company_name)
+# ---::ms::--- end block
